@@ -1,0 +1,11 @@
+services:
+  dev:
+    build: .
+    volumes:
+      - .:/src
+    # This ensures files created in the container belong to YOU, not root
+    user: "${UID}:${GID}"
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development

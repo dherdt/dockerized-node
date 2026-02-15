@@ -1,0 +1,11 @@
+if [ -z `docker ps -q --no-trunc | grep $(docker compose ps -q dev)` ]; then
+    echo "UID=$(id -u)" > .env
+    echo "GID=$(id -g)" >> .env
+    UID=$(id -u) GID=$(id -g) docker compose up -d
+fi
+
+if [ $? -eq 0 ]; then
+    UID=$(id -u) GID=$(id -g) docker compose exec dev npx $@
+else
+    echo "There was an ERROR!!!"
+fi
